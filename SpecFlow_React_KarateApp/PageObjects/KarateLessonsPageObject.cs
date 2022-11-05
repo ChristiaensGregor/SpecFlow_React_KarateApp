@@ -7,7 +7,7 @@ namespace SpecFlow_React_KarateApp.PageObjects
     internal class KarateLessonsPageObject
     {
 
-        private const string karateLessonsUrl = "http://localhost:3000/";
+        private const string karateLessonsUrl = "http://localhost:3000/Lessons";
 
         //The Selenium web driver to automate the browser
         private readonly IWebDriver _webDriver;
