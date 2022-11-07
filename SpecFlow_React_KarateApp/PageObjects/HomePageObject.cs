@@ -43,6 +43,7 @@ namespace SpecFlow_React_KarateApp.PageObjects
         private IWebElement navigation_Settings_Login => _webDriver.FindElement(By.Id("navigation_Setting_Login"));
         private IWebElement navigation_Settings_Logout => _webDriver.FindElement(By.Id("navigation_Setting_Logout"));
 
+
         public bool navigateHome()
         {
             navigation_Home.Click();
@@ -80,8 +81,13 @@ namespace SpecFlow_React_KarateApp.PageObjects
         public bool checkNavigateLogin()
         {
             string url = _webDriver.Url.ToString();
-            Debug.WriteLine(url);
             return url == "http://localhost:3000/login";
+        }
+
+        public bool checkNavigateRegister()
+        {
+            string url = _webDriver.Url.ToString();
+            return url == "http://localhost:3000/Register";
         }
     }
 }

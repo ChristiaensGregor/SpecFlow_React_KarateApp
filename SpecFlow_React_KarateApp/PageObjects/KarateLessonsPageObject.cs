@@ -20,41 +20,9 @@ namespace SpecFlow_React_KarateApp.PageObjects
             _webDriver = webDriver;
             _webDriver.Navigate().GoToUrl(karateLessonsUrl);
         }
-
-        private IWebElement lessonsButton => _webDriver.FindElement(By.Id("LessonsId"));
-        private IWebElement lessonsTitle => _webDriver.FindElement(By.Id("listLessonsTitle"));
-
-        private IWebElement firstLessonTitle => _webDriver.FindElement(By.Id("KarateLessonStandard04102022Id"));
-        public String title => firstLessonTitle.Text; 
-
-
-        public Boolean pageLoads() {
-            return true;
-        }
-
-        public void clickLessons() {
-            lessonsButton.Click();
-        }
-
-        public Boolean lessonsLoads()
-        {
-            var title = lessonsTitle.GetAttribute("value");
-            Debug.WriteLine("Value of lessonsTitle:");
-            Debug.WriteLine(lessonsTitle.GetAttribute("value"));
-            return lessonsTitle.Text == "List Lessons";
-        }
-
-        public String firstLessonExpired()
-        {
-            return WaitUntil(
-                () => firstLessonTitle.Text,
-                result => !string.IsNullOrEmpty(result));
-        }
-
-        private T WaitUntil<T>(Func<T> getResult, Func<T, bool> isResultAccepted) where T : class
+        private T? WaitUntil<T>(Func<T> getResult, Func<T, bool> isResultAccepted) where T : class
         {
             var wait = new WebDriverWait(_webDriver, TimeSpan.FromSeconds(DefaultWaitInSeconds));
-#pragma warning disable CS8603 // Possible null reference return.
             return wait.Until(driver =>
             {
                 var result = getResult();
@@ -63,7 +31,31 @@ namespace SpecFlow_React_KarateApp.PageObjects
 
                 return result;
             });
-#pragma warning restore CS8603 // Possible null reference return.
+        }
+
+        private IWebElement lessonsButton => _webDriver.FindElement(By.Id("navigation_Lessons"));
+        private IWebElement lessonsTitle => _webDriver.FindElement(By.Id("listLessonsTitle"));
+
+        private IWebElement firstLessonTitle => _webDriver.FindElement(By.Id("KarateLessonStandard01112022"));
+        public String title => firstLessonTitle.Text;
+
+        public void clickLessons()
+        {
+            lessonsButton.Click();
+        }
+
+        public String checkLessonsTitle()
+        {
+            return WaitUntil(
+                () => lessonsTitle.Text, 
+                result => !string.IsNullOrEmpty(result));
+        }
+
+        public String firstLessonExpired()
+        {
+            return WaitUntil(
+                () => firstLessonTitle.Text,
+                result => !string.IsNullOrEmpty(result));
         }
     }
 }

@@ -9,12 +9,13 @@ namespace SpecFlow_React_KarateApp.StepDefinitions
     public class NavigationUnknownUserStepDefinitions
     {
         private readonly HomePageObject _homePageObject;
+        private readonly LoginPageObject _loginPageObject;
         private bool navigationResult;
 
         public NavigationUnknownUserStepDefinitions(SeleniumDriver driver)
         {
             _homePageObject = new HomePageObject(driver.Current);
-
+            _loginPageObject = new LoginPageObject(driver.Current);
         }
 
 
@@ -77,6 +78,19 @@ namespace SpecFlow_React_KarateApp.StepDefinitions
         {
             _homePageObject.checkNavigateLogin().Should().BeTrue();
         }
+
+        [When(@"\[Bob clicks on the register prompt]")]
+        public void WhenBobClicksOnTheRegisterPrompt()
+        {
+            _loginPageObject.navigateRegister();
+        }
+
+        [Then(@"\[Bob is navigated to the Register page]")]
+        public void ThenBobIsNavigatedToTheRegisterPage()
+        {
+            _homePageObject.checkNavigateRegister().Should().BeTrue();
+        }
+
 
     }
 }

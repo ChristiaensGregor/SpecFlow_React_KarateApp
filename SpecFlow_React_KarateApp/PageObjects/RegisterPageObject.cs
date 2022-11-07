@@ -35,7 +35,14 @@ namespace SpecFlow_React_KarateApp.PageObjects
         private IWebElement register_mail => _webDriver.FindElement(By.Id("email"));
         private IWebElement register_password => _webDriver.FindElement(By.Id("password"));
         private IWebElement register_register => _webDriver.FindElement(By.Id("register_register"));
-        
+
+
+        public bool checkNavigateRegister()
+        {
+            string url = _webDriver.Url.ToString();
+            return url == "http://localhost:3000/Register";
+        }
+
         public void fillEmail(string mail)
         {
             register_mail.SendKeys(mail);
@@ -52,7 +59,14 @@ namespace SpecFlow_React_KarateApp.PageObjects
         public void clickRegister()
         {
             register_register.Click();
-            Thread.Sleep(1000);
+            Thread.Sleep(2000);
+        }
+
+        public bool checkNavigateHome()
+        {
+            string url = _webDriver.Url.ToString();
+            return url == "http://localhost:3000/";
+
         }
 
 

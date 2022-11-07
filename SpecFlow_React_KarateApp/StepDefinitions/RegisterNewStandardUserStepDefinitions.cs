@@ -10,6 +10,8 @@ namespace SpecFlow_React_KarateApp.StepDefinitions
     {
 
         private readonly RegisterPageObject _registerPageObject;
+        private bool navigationResult;
+
 
         public RegisterNewStandardUserStepDefinitions(SeleniumDriver driver)
         {
@@ -19,6 +21,7 @@ namespace SpecFlow_React_KarateApp.StepDefinitions
         [Given(@"\[Alice is on the registration page]")]
         public void GivenAliceIsOnTheRegistrationPage()
         {
+            _registerPageObject.checkNavigateRegister().Should().BeTrue();
         }
 
         [When(@"\[Alice fills in her email address]")]
@@ -47,6 +50,7 @@ namespace SpecFlow_React_KarateApp.StepDefinitions
         [Then(@"\[Alice is redirected to the home page]")]
         public void ThenAliceIsRedirectedToTheHomePage()
         {
+            _registerPageObject.checkNavigateHome().Should().BeTrue();
         }
     }
 }

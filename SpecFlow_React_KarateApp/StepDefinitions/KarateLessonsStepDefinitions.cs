@@ -10,17 +10,23 @@ namespace SpecFlow_React_KarateApp.StepDefinitions
     {
 
         private readonly KarateLessonsPageObject _karateLessonsPageObject;
+        private readonly HomePageObject _homePageObject;
+        private readonly LoginPageObject _loginPageObject;
 
         public KarateLessonsStepDefinitions(SeleniumDriver driver)
         {
             _karateLessonsPageObject = new KarateLessonsPageObject(driver.Current);
+            _homePageObject = new HomePageObject(driver.Current);
+            _loginPageObject = new LoginPageObject(driver.Current);
 
         }
-
-        [Given(@"Bob can access the KarateApp and the Lessons tab")]
-        public void GivenBobCanAccessTheKarateAppAndTheLessonsTab()
+        [Given(@"Bob is logged in")]
+        public void GivenBobIsLoggedIn()
         {
-            _karateLessonsPageObject.pageLoads().Should().BeTrue();
+            _homePageObject.navigateLogin();
+            _loginPageObject.fillEmail("react_test@test.com");
+            _loginPageObject.fillPassword("test1234");
+            _loginPageObject.clickLogin();
         }
 
         [When(@"Bob clicks on the Lessons tab")]
@@ -32,7 +38,7 @@ namespace SpecFlow_React_KarateApp.StepDefinitions
         [Then(@"The application navigates to the lesson list")]
         public void ThenTheApplicationNavigatesToTheLessonList()
         {
-            _karateLessonsPageObject.lessonsLoads().Should().BeTrue();
+            _karateLessonsPageObject.checkLessonsTitle().Should().NotBeNullOrEmpty();
         }
 
         [Then(@"The first lesson is Expired")]

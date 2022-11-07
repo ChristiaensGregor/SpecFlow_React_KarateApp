@@ -28,3 +28,10 @@ Scenario: [Bob can't navigate to the Users page]
 	When [Bob clicks on the Users button in the navigation bar]
 	Then [Bob is not navigated to the Users page]
 	Then [Bob is automatically navigated to the login page]
+
+@navigation_not_loged_in
+Scenario: [Bob can't navigate to the Register page]
+	Given [Bob is on the home page]
+	When [Bob clicks on the Login setting]
+	When [Bob clicks on the register prompt]
+	Then [Bob is navigated to the Register page]
